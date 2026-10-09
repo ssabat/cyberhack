@@ -1,0 +1,36 @@
+Build a "one-stop-shop" Dockerized Python application with a FastAPI backend and a polished Vanilla JS dashboard to showcase AI agent monitoring.
+
+  2. Key Files & Context
+   - cybercop/main.py: FastAPI application containing the security gateway, analysis engine, and dashboard API.
+   - cybercop/static/: Frontend assets (HTML/CSS/JS).
+   - cybercop/security/: Logic for rule-based detection (injection, PII, etc.).
+   - Dockerfile: Containerization for local deployment.
+   - requirements.txt: Minimal dependencies (fastapi, uvicorn, pydantic, regex).
+
+  3. Implementation Steps
+
+  Phase 1: Backend & Security Engine
+   - FastAPI Setup: Initialize the app and mount static files.
+   - Security Modules:
+       - detect_pii: Regex-based detection for emails, SSNs, and credit cards.
+       - detect_injection: Patterns for common prompt injection techniques.
+       - detect_privacy: Scanning for secrets, API keys, and internal identifiers.
+       - check_auth: Basic token-based gateway authorization.
+   - Gateway Endpoint: Intercept /v1/proxy requests, run security checks, and log results.
+   - Mock Data Generator: A background task to populate the dashboard with sample security events for demonstration.
+
+  Phase 2: Frontend Dashboard (Vanilla JS/CSS)
+   - Layout: Sidebar navigation, summary cards (Total Alerts, Risk Score, Traffic), and a live event stream.
+   - Interactive Components:
+       - Live Log: Table showing recent intercepts with status badges.
+       - Payload Inspector: View full request/response data and flagged patterns.
+   - Styling: Modern "Cyber-Security" aesthetic (dark mode, CSS variables, clean typography).
+
+  Phase 3: Integration & Docker
+   - Dockerization: Create a Dockerfile to package the app for easy deployment on inference gateways.
+   - Validation: Ensure the gateway correctly flags "attacks" and updates the dashboard.
+
+  4. Verification & Testing
+   - Send a request with an email -> Should trigger PII alert.
+   - Send a request with "IGNORE ALL PREVIOUS" -> Should trigger Injection alert.
+   - Run docker build and verify the dashboard is accessible at http://localhost:8000.
